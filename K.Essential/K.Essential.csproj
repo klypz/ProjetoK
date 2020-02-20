@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>1.0.0-beta</Version>
+    <Authors>Renato Moraes</Authors>
+    <Company>klypz.com.br</Company>
+    <Description>A extensão fornece classes que serão utilizadas como padrão de respostas de métodos e exceptions. A idéia é que esta seja ampliada a partir da necessidade da camunidade</Description>
+    <PackageReleaseNotes>- CodeException
+- IEnumerableExtension
+- IQueryableExtension
+- Result
+- ResultList</PackageReleaseNotes>
+    <Copyright>MIT 2019</Copyright>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>K:\Projeto K\k.essential\K.Essential\K.Essential\K.Essential.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>K:\Projeto K\k.essential\K.Essential\K.Essential\K.Essential.xml</DocumentationFile>
+  </PropertyGroup>
+
+</Project>

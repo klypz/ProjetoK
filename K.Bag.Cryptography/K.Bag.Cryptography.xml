@@ -1,0 +1,166 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>K.Bag.Cryptography</name>
+    </assembly>
+    <members>
+        <member name="T:K.Bag.Cryptography.ApplySalt">
+            <summary>
+            <para>Salt é uma técnica utilizada para evitar que uma senha seja exposta a ataque de dicionários.</para>
+            <para>O salt "mistura" uma senha a um texto de forma a inviabilizar o descobrimento da senha original.</para>
+            </summary>
+            <example>
+            <code>
+                string password = "1234";
+                string salt = "String utilizada para misturar-se a senha";
+                
+                ApplySalt passwordWithSalt = new ApplySalt(password, salt);
+                string newPass = passwordWithSalt.Get(HashStringType.SHA256, 9);
+                //sBR7-tlajLZhT9iyx4PwcCde-DmCNC7kAK-M_uIAWUitFUu99QgRZ0XuR2pl68iwtVgUFZ9jSoW4u3O4ceMg8A
+            </code>
+            </example>
+        </member>
+        <member name="M:K.Bag.Cryptography.ApplySalt.#ctor(System.String,System.String)">
+            <param name="input">Senha do usuário</param>
+            <param name="salt">Chave de Salt</param>
+        </member>
+        <member name="M:K.Bag.Cryptography.ApplySalt.Get(K.Bag.Cryptography.HashStringType,System.Int32,System.Int32)">
+            <summary>
+            <para>Obtém o resultado da aplicação do salt em Base64 Reduzido</para>
+            </summary>
+            <param name="hashType">Padrão de criptografia utilizada</param>
+            <param name="iterations">Número de vezes que a iteração utiliza a chave</param>
+            <param name="keySize">Tamanho da chave</param>
+            <returns>Retorna a aplicação do salt em Base64 Reduzido</returns>
+        </member>
+        <member name="T:K.Bag.Cryptography.CryptographyStringExtension">
+            <summary>
+            Métodos rápidos de criptografia de string
+            </summary>
+            <example>
+            <code>
+                //Para converter para MD5
+                CryptoHelper.ToMD5("senha")
+                //Para converter para SHA256
+                CryptoHelper.ToSHA256("senha")
+                //Para converter para criptografia simétrica
+                CryptoHelper.ToSymmetricEncrypt("senha", "chave")
+                //Para fazer a reversão da criptografia simétrica
+                CryptoHelper.ToSymmetricDecrypt("senha criptografada", "chave")
+            </code>
+            </example>
+        </member>
+        <member name="M:K.Bag.Cryptography.CryptographyStringExtension.ToMD5(System.String)">
+            <summary>
+            Cria um string criptografada com o Algorítimo MD5
+            </summary>
+            <param name="self">Texto a ser criptografado</param>
+            <returns>String criptografada em MD5</returns>
+        </member>
+        <member name="M:K.Bag.Cryptography.CryptographyStringExtension.ToSHA1(System.String)">
+            <summary>
+            Cria um string criptografada com o Algorítimo SHA1
+            </summary>
+            <param name="self">Texto a ser criptografado</param>
+            <returns>String criptografada em SHA1</returns>
+        </member>
+        <member name="M:K.Bag.Cryptography.CryptographyStringExtension.ToSHA256(System.String)">
+            <summary>
+            Cria um string criptografada com o Algorítimo SHA256
+            </summary>
+            <param name="self">Texto a ser criptografado</param>
+            <returns>String criptografada em SHA256</returns>
+        </member>
+        <member name="M:K.Bag.Cryptography.CryptographyStringExtension.ToSHA384(System.String)">
+            <summary>
+            Cria um string criptografada com o Algorítimo SHA384
+            </summary>
+            <param name="self">Texto a ser criptografado</param>
+            <returns>String criptografada em SHA384</returns>
+        </member>
+        <member name="M:K.Bag.Cryptography.CryptographyStringExtension.ToSHA512(System.String)">
+            <summary>
+            Cria um string criptografada com o Algorítimo SHA512
+            </summary>
+            <param name="self">Texto a ser criptografado</param>
+            <returns>String criptografada em SHA512</returns>
+        </member>
+        <member name="M:K.Bag.Cryptography.CryptographyStringExtension.ToSymmetricEncrypt(System.String,System.String)">
+            <summary>
+            Cria um string criptografada com o Algorítimo Simétrico utilizando uma chave
+            </summary>
+            <param name="self">Texto a ser criptografado</param>
+            <param name="secret">Chave de criptografia (Deve ser utilizada a mesma para que seja desfeita)</param>
+            <returns>String criptografada</returns>
+        </member>
+        <member name="M:K.Bag.Cryptography.CryptographyStringExtension.ToSymmetricDecrypt(System.String,System.String)">
+            <summary>
+            Cria um string descriptografada com o Algorítimo Simétrico utilizando uma chave
+            </summary>
+            <param name="self">Texto a ser descriptografado</param>
+            <param name="secret">Chave de criptografia (A mesma utilizada na criptografia)</param>
+            <returns>String descriptografada</returns>
+        </member>
+        <member name="T:K.Bag.Cryptography.HashString">
+            <summary>
+            <para>Criptografa string utilizando os Algorítimos</para>
+            <para>MD5, SHA1, SHA256, SHA384, SHA512</para>
+            </summary>
+        </member>
+        <member name="M:K.Bag.Cryptography.HashString.GetHashString(K.Bag.Cryptography.HashStringType)">
+            <summary>
+            Obtém a "Hash" de um texto (input) com base no algorítimo informado
+            </summary>
+            <param name="hashStringType">Tipo de Algorítimo de hash</param>
+            <returns>Retorna string criptografada</returns>
+        </member>
+        <member name="T:K.Bag.Cryptography.HashStringType">
+            <summary>
+            Tipo de algorítimo "Hash" para realizar criptografias
+            </summary>
+        </member>
+        <member name="F:K.Bag.Cryptography.HashStringType.MD5">
+            <summary>
+            MD5 = 128 bites
+            </summary>
+        </member>
+        <member name="F:K.Bag.Cryptography.HashStringType.SHA1">
+            <summary>
+            SHA1 = 160 bites
+            </summary>
+        </member>
+        <member name="F:K.Bag.Cryptography.HashStringType.SHA256">
+            <summary>
+            SHA256 = 256 bites
+            </summary>
+        </member>
+        <member name="F:K.Bag.Cryptography.HashStringType.SHA384">
+            <summary>
+            SHA384 = 384 bites
+            </summary>
+        </member>
+        <member name="F:K.Bag.Cryptography.HashStringType.SHA512">
+            <summary>
+            SHA512 = 512 bites
+            </summary>
+        </member>
+        <! -- Comentário XML mal formado ignorado para o membro "T:K.Bag.Cryptography.SymmetricEncrypt" -->
+        <member name="M:K.Bag.Cryptography.SymmetricEncrypt.#ctor(System.String)">
+            <param name="secret">Chave ou segredo utilizado para criptografar um texto</param>
+        </member>
+        <member name="M:K.Bag.Cryptography.SymmetricEncrypt.Encrypt(System.String)">
+            <summary>
+            Criptografar um texto com base na chave
+            </summary>
+            <param name="input">Texto a ser criptografado</param>
+            <returns>Texto criptografado com base em uma chave</returns>
+        </member>
+        <member name="M:K.Bag.Cryptography.SymmetricEncrypt.Decrypt(System.String)">
+            <summary>
+            Reverter criptografia com base na chave
+            </summary>
+            <param name="textEncrypted">Texto criptografado</param>
+            <returns>Texto descriptografado com base em uma chave</returns>
+        </member>
+    </members>
+</doc>

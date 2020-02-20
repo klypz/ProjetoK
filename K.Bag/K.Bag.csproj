@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>1.0.3</Version>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Company>klypz.com.br</Company>
+    <Authors>Renato Moraes</Authors>
+    <Product>K.Bag</Product>
+    <Description>Utility library with multiple functions
+- Base64 Converter
+- Extension for String
+- Password Generator
+- Description for Enum</Description>
+    <Copyright>MIT 2019</Copyright>
+    <PackageReleaseNotes>- Conversão base64 para extensão string</PackageReleaseNotes>
+    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>.\obj\release\netstandard2.0\K.Bag.xml</DocumentationFile>
+  </PropertyGroup>
+
+</Project>

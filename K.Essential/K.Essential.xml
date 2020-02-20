@@ -1,0 +1,360 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>K.Essential</name>
+    </assembly>
+    <members>
+        <member name="T:K.Essential.CodeException">
+            <summary>
+            CodeException é herdada da classe Exception, onde inclui uma propriedade "Code" que pode ser utilizada como identificador da exceção.
+            </summary>
+        </member>
+        <member name="P:K.Essential.CodeException.Code">
+            <summary>
+            Código de identificação da exceção
+            </summary>
+        </member>
+        <member name="M:K.Essential.CodeException.#ctor(System.String)">
+            <param name="code">Código da Exceção</param>
+        </member>
+        <member name="M:K.Essential.CodeException.#ctor(System.String,System.String)">
+            <param name="code">Código da Exceção</param>
+            <param name="message">Mensagem da Exceção</param>
+        </member>
+        <member name="M:K.Essential.CodeException.#ctor(System.String,System.String,System.Exception)">
+            <param name="code">Código da Exceção</param>
+            <param name="message">Mensagem da Exceção</param>
+            <param name="innerException">Exceção interna ou origem</param>
+        </member>
+        <member name="M:K.Essential.CodeException.#ctor(System.String,System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <param name="info"></param>
+            <param name="context"></param>
+            <param name="code">Código da Exceção</param>
+        </member>
+        <member name="T:K.Essential.IEnumerableExtension">
+            <summary>
+            Extensão de funcionalidades da interface [IEnumerable]
+            </summary>
+        </member>
+        <member name="M:K.Essential.IEnumerableExtension.Pagination``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Int32)">
+            <summary>
+            <para>Facilita a operação de paginar um IEnumerable.</para>
+            <para>É necessário determinar a quantidade de registro por página e qual a página que deve ser retornada.</para>
+            </summary>
+            <example>
+            <code>
+            //Retorna uma lista de pessoa com no máximo 10 registro contanto a partir do registro de número 30
+            //Quando se existe um Filtro (Where) é necessário um ordenamento (OrderBy)
+            List&lt;Pessoa&gt; pessoa = context.Pessoas.Where(p =&gt; p.Nome.Contains("N") ).Pagination(10, 2).OrderBy(o =&gt; new { o.Nome }).ToList()
+            </code>
+            </example>
+            <typeparam name="TSource">Classe que servirá como base do IEnumerable tratado</typeparam>
+            <param name="self">IEnumerable a ser tratado</param>
+            <param name="pageSize">Quantidade de registro por página</param>
+            <param name="page">Número da página a ser retornado. O registro inicial da paginação é (pageSize * page)</param>
+            <returns>IEnumerable paginado</returns>
+        </member>
+        <member name="M:K.Essential.IQueryableExtension.Pagination``1(System.Linq.IQueryable{``0},System.Int32,System.Int32)">
+            <summary>
+            <para>Facilita a operação de paginar um IEnumerable.</para>
+            <para>É necessário determinar a quantidade de registro por página e qual a página que deve ser retornada.</para>
+            </summary>
+            <example>
+            <code>
+            //Retorna uma lista de pessoa com no máximo 10 registro contanto a partir do registro de número 30
+            //Quando se existe um Filtro (Where) é necessário um ordenamento (OrderBy)
+            List&lt;Pessoa&gt; pessoa = context.Pessoas.Where(p =&gt; p.Nome.Contains("N") ).Pagination(10, 2).OrderBy(o =&gt; new { o.Nome }).ToList()
+            </code>
+            </example>
+            <typeparam name="TSource">Classe que servirá como base do IEnumerable tratado</typeparam>
+            <param name="self">IEnumerable a ser tratado</param>
+            <param name="pageSize">Quantidade de registro por página</param>
+            <param name="page">Número da página a ser retornado. O registro inicial da paginação é (pageSize * page)</param>
+            <returns>IEnumerable paginado</returns>
+        </member>
+        <member name="T:K.Essential.Result`1">
+            <summary>
+            Padrão de resposta a requisição. Mais utilizados para requisições que necessitem de uma validação da resposta.
+            </summary>
+            <example>
+            <code>
+            //...
+            public Result&lt;Pessoa&gt; GetPessoa(int id){
+                try
+                {
+                    Pessoa pessoa = context.Pessoas.FirstOrDefault(p => p.Id == id);
+                    Result&lt;Pessoa&gt; result = new Result&lt;Pessoa&gt;(pessoa);
+                    
+                    return result;
+                }
+                catch(Exception ex)
+                {
+                    Result&lt;Pessoa&gt; result = new Result&lt;Pessoa&gt;(ex);
+                    
+                    return result;
+                }
+            }
+            //..
+            </code>
+            </example>
+            <typeparam name="T">Classe esperada como resposta da requisição.</typeparam>
+        </member>
+        <member name="M:K.Essential.Result`1.#ctor(K.Essential.ResultType)">
+            <summary>
+            <para>Utilizado para montar um objeto de retorno em tempo de execução.</para>
+            </summary>
+            <param name="type">Tipo de resultado</param>
+        </member>
+        <member name="M:K.Essential.Result`1.#ctor(K.Essential.ResultType,System.String)">
+            <summary>
+            <para>Utilizado para montar um objeto de retorno em tempo de execução.</para>
+            </summary>
+            <param name="type">Tipo de resultado</param>
+            <param name="code">Um código definido para a resposta</param>
+        </member>
+        <member name="M:K.Essential.Result`1.#ctor(K.Essential.ResultType,System.String,`0)">
+            <summary>
+            <para>Utilizado para retornar um objeto requisitado.</para>
+            </summary>
+            <param name="type">Tipo de resultado</param>
+            <param name="code">Um código definido para a resposta</param>
+            <param name="data">Objeto da resposta</param>
+        </member>
+        <member name="M:K.Essential.Result`1.#ctor(K.Essential.ResultType,`0)">
+            <summary>
+            <para>Utilizado para retornar um objeto requisitado.</para>
+            </summary>
+            <param name="type">Tipo de resultado</param>
+            <param name="data">Objeto da resposta</param>
+        </member>
+        <member name="M:K.Essential.Result`1.#ctor(System.String,`0)">
+            <summary>
+            <para>Utilizado para retornar um objeto requisitado.</para>
+            <para>O Tipo de resultado é "Sucesso" (1) como padrão</para>
+            </summary>
+            <param name="code">Um código definido para a resposta</param>
+            <param name="data">Objeto da resposta</param>
+        </member>
+        <member name="M:K.Essential.Result`1.#ctor(`0)">
+            <summary>
+            <para>Utilizado para retornar um objeto requisitado.</para>
+            <para>O Tipo de resultado é "Sucesso" (1) como padrão</para>
+            </summary>
+            <param name="data">Objeto da resposta</param>
+        </member>
+        <member name="M:K.Essential.Result`1.#ctor(K.Essential.ResultType,System.String,System.Exception)">
+            <summary>
+            <para>Utilizado para retornar uma exceção como resposta</para>
+            </summary>
+            <param name="type">Tipo de resultado</param>
+            <param name="code">Um código definido para a resposta</param>
+            <param name="exception">Objeto de exceção</param>
+        </member>
+        <member name="M:K.Essential.Result`1.#ctor(K.Essential.ResultType,System.Exception)">
+            <summary>
+            <para>Utilizado para retornar uma exceção como resposta</para>
+            </summary>
+            <param name="type">Tipo de resultado</param>
+            <param name="exception">Objeto de exceção</param>
+        </member>
+        <member name="M:K.Essential.Result`1.#ctor(System.String,System.Exception)">
+            <summary>
+            <para>Utilizado para retornar uma exceção como resposta</para>
+            <para>O Tipo de resultado é "Exceção" (2) como padrão</para>
+            </summary>
+            <param name="exception">Objeto de exceção</param>
+            <param name="code">Um código definido para a resposta</param>
+        </member>
+        <member name="M:K.Essential.Result`1.#ctor(System.Exception)">
+            <summary>
+            <para>Utilizado para retornar uma exceção como resposta</para>
+            <para>O Tipo de resultado é "Exceção" (2) como padrão</para>
+            </summary>
+            <param name="exception">Objeto de exceção</param>
+        </member>
+        <member name="P:K.Essential.Result`1.Code">
+            <summary>
+            Código próprio do retorno
+            </summary>
+        </member>
+        <member name="P:K.Essential.Result`1.Type">
+            <summary>
+            Tipo de resposta
+            </summary>
+        </member>
+        <member name="P:K.Essential.Result`1.TypeString">
+            <summary>
+            Tipo de resposta em string, necessário para serialização
+            </summary>
+        </member>
+        <member name="P:K.Essential.Result`1.Data">
+            <summary>
+            Objeto esperado pela requisição
+            </summary>
+        </member>
+        <member name="P:K.Essential.Result`1.Exception">
+            <summary>
+            Objeto de exceção em caso de erro.
+            </summary>
+        </member>
+        <member name="T:K.Essential.ResultList`1">
+            <summary>
+            Padrão de resposta a requisição quando é esperado uma lista. Mais utilizados para requisições que necessitem de uma validação da resposta.
+            </summary>
+            <example>
+            <code>
+            //...
+            public ResultList&lt;Pessoa&gt; GetPessoas(){
+                try
+                {
+                    int count = context.Pessoas.Count();
+                    List&lt;Pessoa&gt; pessoas = context.Pessoas.Pagination(10, 0).ToList();
+                    ResultList&lt;Pessoa&gt; result = new ResultList&lt;Pessoa&gt;(10, 0, pessoas);
+                    
+                    return result;
+                }
+                catch(Exception ex)
+                {
+                    ResultList&lt;Pessoa&gt; result = new ResultList&lt;Pessoa&gt;(ex);
+                    
+                    return result;
+                }
+            }
+            //..
+            </code>
+            </example>
+            <typeparam name="T">Classe esperada como resposta da requisição. A requisição espera como resposta uma Lista desta classe</typeparam>
+        </member>
+        <member name="M:K.Essential.ResultList`1.#ctor(System.Int32,System.Int32,System.Int32,K.Essential.ResultType)">
+            <summary>
+            <para>Utilizado para montar um objeto de retorno em tempo de execução.</para>
+            </summary>
+            <param name="type">Tipo de resultado</param>
+            <param name="pageSize">Quantidade de registros por página</param>
+            <param name="currentPage">Página atual</param>
+            <param name="count">Quantidade total de registros na consulta</param>
+        </member>
+        <member name="M:K.Essential.ResultList`1.#ctor(System.Int32,System.Int32,System.Int32,K.Essential.ResultType,System.String)">
+            <summary>
+            <para>Utilizado para montar um objeto de retorno em tempo de execução.</para>
+            </summary>
+            <param name="type">Tipo de resultado</param>
+            <param name="code">Um código definido para a resposta</param>
+            <param name="pageSize">Quantidade de registros por página</param>
+            <param name="currentPage">Página atual</param>
+            <param name="count">Quantidade total de registros na consulta</param>
+        </member>
+        <member name="M:K.Essential.ResultList`1.#ctor(System.Int32,System.Int32,System.Int32,K.Essential.ResultType,System.String,System.Collections.Generic.List{`0})">
+            <summary>
+            <para>Utilizado para retornar um objeto requisitado.</para>
+            </summary>
+            <param name="type">Tipo de resultado</param>
+            <param name="code">Um código definido para a resposta</param>
+            <param name="data">Objeto da resposta</param>
+            <param name="pageSize">Quantidade de registros por página</param>
+            <param name="currentPage">Página atual</param>
+            <param name="count">Quantidade total de registros na consulta</param>
+        </member>
+        <member name="M:K.Essential.ResultList`1.#ctor(System.Int32,System.Int32,System.Int32,K.Essential.ResultType,System.Collections.Generic.List{`0})">
+            <summary>
+            <para>Utilizado para retornar um objeto requisitado.</para>
+            </summary>
+            <param name="type">Tipo de resultado</param>
+            <param name="data">Objeto da resposta</param>
+            <param name="pageSize">Quantidade de registros por página</param>
+            <param name="currentPage">Página atual</param>
+            <param name="count">Quantidade total de registros na consulta</param>
+        </member>
+        <member name="M:K.Essential.ResultList`1.#ctor(System.Int32,System.Int32,System.Int32,System.String,System.Collections.Generic.List{`0})">
+            <summary>
+            <para>Utilizado para retornar um objeto requisitado.</para>
+            <para>O Tipo de resultado é "Sucesso" (1) como padrão</para>
+            </summary>
+            <param name="code">Um código definido para a resposta</param>
+            <param name="data">Objeto da resposta</param>
+            <param name="pageSize">Quantidade de registros por página</param>
+            <param name="currentPage">Página atual</param>
+            <param name="count">Quantidade total de registros na consulta</param>
+        </member>
+        <member name="M:K.Essential.ResultList`1.#ctor(System.Int32,System.Int32,System.Int32,System.Collections.Generic.List{`0})">
+            <summary>
+            <para>Utilizado para retornar um objeto requisitado.</para>
+            <para>O Tipo de resultado é "Sucesso" (1) como padrão</para>
+            </summary>
+            <param name="data">Objeto da resposta</param>
+            <param name="pageSize">Quantidade de registros por página</param>
+            <param name="currentPage">Página atual</param>
+            <param name="count">Quantidade total de registros na consulta</param>
+        </member>
+        <member name="M:K.Essential.ResultList`1.#ctor(K.Essential.ResultType,System.String,System.Exception)">
+            <summary>
+            <para>Utilizado para retornar uma exceção como resposta</para>
+            </summary>
+            <param name="type">Tipo de resultado</param>
+            <param name="code">Um código definido para a resposta</param>
+            <param name="exception">Objeto de exceção</param>
+        </member>
+        <member name="M:K.Essential.ResultList`1.#ctor(K.Essential.ResultType,System.Exception)">
+            <summary>
+            <para>Utilizado para retornar uma exceção como resposta</para>
+            </summary>
+            <param name="type">Tipo de resultado</param>
+            <param name="exception">Objeto de exceção</param>
+        </member>
+        <member name="M:K.Essential.ResultList`1.#ctor(System.String,System.Exception)">
+            <summary>
+            <para>Utilizado para retornar uma exceção como resposta</para>
+            <para>O Tipo de resultado é "Exceção" (2) como padrão</para>
+            </summary>
+            <param name="exception">Objeto de exceção</param>
+            <param name="code">Um código definido para a resposta</param>
+        </member>
+        <member name="M:K.Essential.ResultList`1.#ctor(System.Exception)">
+            <summary>
+            <para>Utilizado para retornar uma exceção como resposta</para>
+            <para>O Tipo de resultado é "Exceção" (2) como padrão</para>
+            </summary>
+            <param name="exception">Objeto de exceção</param>
+        </member>
+        <member name="P:K.Essential.ResultList`1.PageSize">
+            <summary>
+            Quantidade de registros por página
+            </summary>
+        </member>
+        <member name="P:K.Essential.ResultList`1.CurrentPage">
+            <summary>
+            Página atual
+            </summary>
+        </member>
+        <member name="P:K.Essential.ResultList`1.Pages">
+            <summary>
+            Quantidade total de páginas. Utiliza como base o tamanho da página e quantidade de registro
+            </summary>
+        </member>
+        <member name="P:K.Essential.ResultList`1.Count">
+            <summary>
+            Quantidade total de registros na consulta
+            </summary>
+        </member>
+        <member name="T:K.Essential.ResultType">
+            <summary>
+            <para>Tipo de resultado retornado para requisição.</para>
+            </summary>
+        </member>
+        <member name="F:K.Essential.ResultType.Success">
+            <summary>
+            O resultado foi satisfatório
+            </summary>
+        </member>
+        <member name="F:K.Essential.ResultType.Exception">
+            <summary>
+            Ocorreu um erro que impossibilita o fim do processo
+            </summary>
+        </member>
+        <member name="F:K.Essential.ResultType.Empty">
+            <summary>
+            Um sucesso, entretanto não houve informação a retornar
+            </summary>
+        </member>
+    </members>
+</doc>

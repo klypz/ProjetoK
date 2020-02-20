@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Renato Moraes</Authors>
+    <Company>klypz.com.br</Company>
+    <Description>Parte do pacote k.bag este deve facilitar o uso da criptografia em códigos</Description>
+    <Version>1.0.1</Version>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageReleaseNotes>- Problema com tamanho de chave para aplicação de estrutura .NET Core</PackageReleaseNotes>
+    <Copyright>MIT 2019</Copyright>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>.\obj\release\netstandard2.0\K.Bag.Cryptography.xml</DocumentationFile>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\K.Bag\K.Bag.csproj" />
+  </ItemGroup>
+
+</Project>
